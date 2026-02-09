@@ -80,7 +80,6 @@ export const menfessStartHandler = async (ctx: BotContext): Promise<void> => {
   const welcomeMessage = `${dateStringIDLocale}\n\n<b>${process.env.MENFESS_CHANNEL_ID?.toUpperCase()} - MENFESS</b>\n\n<b>👤 USER DATA</b>\n┌ Username: ${username}\n├ TelegramID: ${userId}\n├ Status: ${isPremium ? "Premium" : "Regular"}\n└ Max character: ${textLimitText} chars\n\n<b>📊 SISA KUOTA</b>\n└ 🎯 Kuota tersisa ${quotaText} pesan \n\n${RULES}\n\n 📝 <b>NOTE</b>\n 👉 add #${process.env.MENFESS_HASHTAG} hastag to your confession`;
 
   await ctx.reply(welcomeMessage, { 
-    parse_mode: 'HTML',
     ...premiumMenus.keyboards.main
   });
 };
