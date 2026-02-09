@@ -18,6 +18,8 @@ export interface BotConfig {
   startHandler?: (ctx: BotContext) => void | Promise<void>;
   textHandler?: (ctx: BotContext) => void | Promise<void>;
   callbackHandler?: (ctx: BotContext) => void | Promise<void>;
+  newChatMembersHandler?: (ctx: BotContext) => void | Promise<void>;
+  leftChatMemberHandler?: (ctx: BotContext) => void | Promise<void>;
 }
 
 export class TelegramBot {
@@ -84,6 +86,16 @@ export class TelegramBot {
     // Handle callback queries - use custom handler if provided
     if (this.config.callbackHandler) {
       this.bot.on('callback_query', this.config.callbackHandler);
+    }
+
+    // Handle new chat members - use custom handler if provided
+    if (this.config.newChatMembersHandler) {
+      this.bot.on('new_chat_members', this.config.newChatMembersHandler);
+    }
+
+    // Handle left chat member - use custom handler if provided
+    if (this.config.leftChatMemberHandler) {
+      this.bot.on('left_chat_member', this.config.leftChatMemberHandler);
     }
 
     // Handle errors

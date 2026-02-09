@@ -6,6 +6,7 @@ dotenv.config();
 import { BotConfig } from '../bot';
 import { menfessBotCommands, menfessStartHandler, menfessTextHandler, menfessCallbackHandler } from './menfess/commands';
 import { promoteBotCommands, promoteStartHandler, promoteTextHandler } from './promote/commands';
+import { spamBotCommands, spamStartHandler, spamTextHandler, newChatMembersHandler, leftChatMemberHandler } from './gcwatcher/commands';
 
 export const botConfigurations: BotConfig[] = [
   {
@@ -26,5 +27,16 @@ export const botConfigurations: BotConfig[] = [
     customCommands: promoteBotCommands,
     startHandler: promoteStartHandler,
     textHandler: promoteTextHandler
-  }
+  },
+  {
+    name: 'GCWatcher Bot',
+    token: process.env.SPAM_BOT_TOKEN || '',
+    webhookPath: process.env.SPAM_WEBHOOK_URI || 'gcwatcher-webhook',
+    secretToken: process.env.WEBHOOK_SECRET,
+    customCommands: spamBotCommands,
+    startHandler: spamStartHandler,
+    textHandler: spamTextHandler,
+    newChatMembersHandler: newChatMembersHandler,
+    leftChatMemberHandler: leftChatMemberHandler
+  },
 ];
